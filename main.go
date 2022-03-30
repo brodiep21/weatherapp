@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
-	"text/template"
 	"time"
 )
 
@@ -54,6 +54,14 @@ func Weatherinput(url string) {
 }
 
 func main() {
+
+	newtemp := template.Must(template.New("site.html").ParseGlob("website/*.html"))
+
+	fmt.Println("Starting server at port 8080")
+	if err := http.ListenAndServe(":8080", Handler(newtemp)); err != nil {
+		log.Fatalf("Could not run server %s", err)
+	}
+
 	var s string
 	fmt.Scanf("%c", &s)
 
@@ -61,7 +69,6 @@ func main() {
 	// key := "46074bec0377037004820d9c079cdad9"
 	Weatherinput(weatherinputstring)
 
-	newtemp := template.Must(template.New("site.html").ParseGlob("website/*.html"))
 }
 
 //
