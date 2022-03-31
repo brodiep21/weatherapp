@@ -22,6 +22,8 @@ type Weatherinfo struct {
 	Main Main
 }
 
+var City string
+
 func Handler(t *template.Template) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if err := t.Execute(w, r.URL.Query()); err != nil {
@@ -53,6 +55,17 @@ func Weatherinput(url string) {
 	fmt.Println(s)
 }
 
+func HTMLresponse(w http.ResponseWriter, r *http.Request) {
+
+	err := r.ParseForm()
+	if err != nil {
+		log.Fatalf("could not gather form info %s", err)
+	}
+
+	City = r.PostFormValue("city")
+	fmt.Printf(w, City)
+}
+
 func main() {
 
 	newtemp := template.Must(template.New("site.html").ParseGlob("website/*.html"))
@@ -62,10 +75,7 @@ func main() {
 		log.Fatalf("Could not run server %s", err)
 	}
 
-	var s string
-	fmt.Scanf("%c", &s)
-
-	weatherinputstring := "https://api.openweathermap.org/data/2.5/weather?q=" + s + "&appid=46074bec0377037004820d9c079cdad9&units=imperial"
+	weatherinputstring := "https://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=46074bec0377037004820d9c079cdad9&units=imperial"
 	// key := "46074bec0377037004820d9c079cdad9"
 	Weatherinput(weatherinputstring)
 
