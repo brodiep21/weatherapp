@@ -16,7 +16,6 @@ type Main struct {
 	Humidity int     `json:"humidity"`
 }
 
-// kelvin to fahrenheit 1.8*(K-273) + 32
 type Weatherinfo struct {
 	Main Main
 }
@@ -39,6 +38,6 @@ func Weatherinput(url string) {
 		log.Fatal(err)
 	}
 	json.Unmarshal(body, &s)
-	// temp := math.Round((s.Main.Temp-273)*1.8 + 32)
+
 	fmt.Println(s)
 }

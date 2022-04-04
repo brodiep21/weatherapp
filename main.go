@@ -33,7 +33,7 @@ func HTMLresponse(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
-	newtemp := template.Must(template.New("site.html").ParseGlob("website/*.html"))
+	newtemp := template.Must(template.New("site.html").ParseGlob("website/*.html"))s
 
 	fmt.Println("Starting server at port 8080")
 	if err := http.ListenAndServe(":8080", Handler(newtemp)); err != nil {
