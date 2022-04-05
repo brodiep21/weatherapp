@@ -23,26 +23,6 @@ type Weatherinfo struct {
 
 var s Weatherinfo
 
-//parses information from the weatherapp API
-// func Weatherinput(url string) {
-
-// 	client := &http.Client{Timeout: 3 * time.Second}
-
-// 	req, err := client.Get(url)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-
-// 	defer req.Body.Close()
-
-// 	body, err := io.ReadAll(req.Body)
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// 	json.Unmarshal(body, &s)
-
-// }
-
 //create an HTML Template
 var templ *template.Template
 
@@ -80,7 +60,7 @@ func HTMLresponse(w http.ResponseWriter, r *http.Request) {
 	}
 	json.Unmarshal(body, &s)
 
-	templ.ExecuteTemplate(w, "weather.html")
+	templ.ExecuteTemplate(w, "weather.html", s)
 }
 
 //base HTML page for search
