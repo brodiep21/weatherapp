@@ -11,10 +11,11 @@ import (
 )
 
 type Main struct {
-	Temp     float64 `json:"temp"`
-	High     float64 `json:"temp_max"`
-	Low      float64 `json:"temp_min"`
-	Humidity int     `json:"humidity"`
+	Temp float64 `json:"temp"`
+	High float64 `json:"temp_max"`
+	Low  float64 `json:"temp_min"`
+	// Humidity int     `json:"humidity"`
+	City string
 }
 
 type Weatherinfo struct {
@@ -30,9 +31,6 @@ func init() {
 	templ = template.Must(template.ParseGlob("website/*.html"))
 }
 
-//string input set for the city
-var City string
-
 //receives form method from HTML and parses it into the weather API. Then parses that into a new form template and redirects
 func HTMLresponse(w http.ResponseWriter, r *http.Request) {
 
@@ -41,9 +39,9 @@ func HTMLresponse(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	City = r.FormValue("city")
+	s.Main.City = r.FormValue("city")
 
-	weatherinputstring := "https://api.openweathermap.org/data/2.5/weather?q=" + City + "&appid=46074bec0377037004820d9c079cdad9&units=imperial"
+	weatherinputstring := "https://api.openweathermap.org/data/2.5/weather?q=" + s.Main.City + "&appid=46074bec0377037004820d9c079cdad9&units=imperial"
 
 	client := &http.Client{Timeout: 3 * time.Second}
 
@@ -62,6 +60,9 @@ func HTMLresponse(w http.ResponseWriter, r *http.Request) {
 
 	templ.ExecuteTemplate(w, "weather.html", s)
 }
+
+//string input set for the city
+// var City string
 
 //base HTML page for search
 func homePage(w http.ResponseWriter, r *http.Request) {
