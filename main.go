@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -28,7 +29,7 @@ var s Weatherinfo
 var templ *template.Template
 
 func init() {
-	templ = template.Must(template.ParseGlob("website/*.html"))
+	templ = template.Must(template.ParseGlob("*.html"))
 }
 
 //receives form method from HTML and parses it into the weather API. Then parses that into a new form template and redirects
@@ -70,12 +71,16 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-
-	fmt.Println("Starting server at port 8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+		log.Printf("Setting default port to %s", port)
+	}
+	fmt.Printf("Starting server at %s", port)
 
 	http.HandleFunc("/", homePage)
 	http.HandleFunc("/weather", HTMLresponse)
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":"+port, nil)
 
 }
 
