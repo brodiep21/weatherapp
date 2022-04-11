@@ -6,8 +6,6 @@ WORKDIR /weatherapp
 
 COPY go.mod .
 
-COPY notice.sh /usr/bin
-
 COPY homepage.html .
 
 COPY weather.html .
@@ -17,7 +15,5 @@ COPY main.go .
 ENV PORT 8080
 
 RUN go build
-
-ENTRYPOINT ["/usr/bin/notice.sh"]
 
 ENTRYPOINT go run main.go
