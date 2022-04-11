@@ -1,4 +1,4 @@
-FROM golang:1.17-alpine
+FROM gcr.io/cloud-builders/docker
 
 LABEL maintainer "Brodie <brodiep21@hotmail.com>"
 
