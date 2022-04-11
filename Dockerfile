@@ -18,6 +18,7 @@ ENV PORT 8080
 
 RUN go build
 
-ENTRYPOINT ["/usr/bin/notice.sh"]
-
 ENTRYPOINT go run main.go
+
+
+# ENTRYPOINT ["/usr/bin/notice.sh"]
