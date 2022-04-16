@@ -14,6 +14,10 @@ COPY main.go .
 
 ENV PORT 8080
 
+RUN apk add --no-cache go
+
+RUN go version
+
 RUN go build
 
 ENTRYPOINT go run main.go
