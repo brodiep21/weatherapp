@@ -1,5 +1,7 @@
 FROM gcr.io/cloud-builders/docker
 
+FROM golang:latest
+
 LABEL maintainer "Brodie <brodiep21@hotmail.com>"
 
 WORKDIR /weatherapp
@@ -14,9 +16,9 @@ COPY main.go .
 
 ENV PORT 8080
 
-RUN apk add --no-cache go
+# RUN apk add --no-cache go
 
-RUN go version
+# RUN go version
 
 RUN go build
 
