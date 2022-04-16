@@ -6,7 +6,7 @@ WORKDIR /weatherapp
 
 COPY go.mod .
 
-COPY notice.sh /usr/bin
+# COPY notice.sh /usr/bin
 
 COPY homepage.html .
 
