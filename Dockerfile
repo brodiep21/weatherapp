@@ -4,13 +4,13 @@ LABEL maintainer "Brodie <brodiep21@hotmail.com>"
 
 WORKDIR /weatherapp
 
-COPY go.mod 
+COPY go.mod .
 
-COPY homepage.html 
+COPY homepage.html .
 
-COPY weather.html 
+COPY weather.html .
 
-COPY main.go 
+COPY main.go .
 
 ENV PORT 8080
 
